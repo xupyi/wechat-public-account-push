@@ -18,14 +18,14 @@ const USER_CONFIG ={
 		"name": "想",
 		"id": "ollwI6lvhiaKp6-Yifu8jsXw3SNs",
 		"useTemplateId": "LUTXFrKdGZfycODHki0OUMkHcn6C56h-DoqL4st6V9Q",
-		"province": "浙江",
-		"city": "杭州",
+		"province": "上海",
+		"city": "上海",
 		"horoscopeDate": "10-11",
 		"horoscopeDateType": "今日",
 		"openUrl": "https://shuangxunian.github.io/",
 		"festivals": [{
 			"type": "*生日",
-			"name": "嗯嗯",
+			"name": "\(^o^)/",
 			"date": "10-12",
 			"year": "2022"
 		}],
