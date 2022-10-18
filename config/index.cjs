@@ -7,7 +7,7 @@
  */
 const USER_CONFIG ={
 	"APP_ID": "wxa093d71ec9c445eb",
-	"APP_SECRET": "0dfd464b3bc6df76469b62163818d9b6",
+	"APP_SECRET": "be4e4d95de5c413ef390074f780dea10",
 	"IS_SHOW_COLOR": true,
 	"CALLBACK_TEMPLATE_ID": "",
 	"CALLBACK_USERS": [{
@@ -16,8 +16,8 @@ const USER_CONFIG ={
 	}],
 	"USERS": [{
 		"name": "想",
-		"id": "wxa093d71ec9c445eb",
-		"useTemplateId": "0dfd464b3bc6df76469b62163818d9b6",
+		"id": "ollwI6lvhiaKp6-Yifu8jsXw3SNs",
+		"useTemplateId": "LUTXFrKdGZfycODHki0OUMkHcn6C56h-DoqL4st6V9Q",
 		"province": "浙江",
 		"city": "杭州",
 		"horoscopeDate": "10-11",
