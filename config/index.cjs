@@ -17,7 +17,7 @@ const USER_CONFIG ={
 	"USERS": [{
 		"name": "想",
 		"id": "ollwI6lvhiaKp6-Yifu8jsXw3SNs",
-		"useTemplateId": "LUTXFrKdGZfycODHki0OUMkHcn6C56h-DoqL4st6V9Q",
+		"useTemplateId": "9hJ_1VMWxpqL1Pz8Jg_1ciiNoWDjVWdmVwi6bMgeZm0",
 		"province": "上海",
 		"city": "上海",
 		"horoscopeDate": "10-11",
@@ -26,10 +26,10 @@ const USER_CONFIG ={
 		"festivals": [{
 			"type": "*生日",
 			"name": "\(^o^)/",
-			"date": "10-12",
-			"year": "2022"
+			"date": "09-10",
+			"year": "1998"
 		}],
-		"customizedDateList": []
+		"customizedDateList": [{ keyword: 'love_day', date: '2022-09-08' },]
 	}],
 	"SWITCH": {
 		"weather": true,
