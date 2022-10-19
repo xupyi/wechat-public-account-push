@@ -9,27 +9,27 @@ const USER_CONFIG ={
 	"APP_ID": "wxa093d71ec9c445eb",
 	"APP_SECRET": "be4e4d95de5c413ef390074f780dea10",
 	"IS_SHOW_COLOR": true,
-	"CALLBACK_TEMPLATE_ID": "",
+	"CALLBACK_TEMPLATE_ID": "9hJ_1VMWxpqL1Pz8Jg_1ciiNoWDjVWdmVwi6bMgeZm0",
 	"CALLBACK_USERS": [{
 		"name": "自己",
-		"id": ""
+		"id": "ollwI6lvhiaKp6-Yifu8jsXw3SNs"
 	}],
 	"USERS": [{
-		"name": "想",
+		"name": "徐鹏毅",
 		"id": "ollwI6lvhiaKp6-Yifu8jsXw3SNs",
 		"useTemplateId": "9hJ_1VMWxpqL1Pz8Jg_1ciiNoWDjVWdmVwi6bMgeZm0",
 		"province": "上海",
 		"city": "上海",
-		"horoscopeDate": "10-11",
+		"horoscopeDate": "09-10",
 		"horoscopeDateType": "今日",
-		"openUrl": "https://shuangxunian.github.io/",
+		"openUrl": "https://baidu.com",
 		"festivals": [{
 			"type": "*生日",
-			"name": "\(^o^)/",
-			"date": "09-10",
-			"year": "1998"
+			"name": "生日0-0",
+			"date": "10-31",
+			"year": "2022"
 		}],
-		"customizedDateList": [{ keyword: 'love_day', date: '2022-09-08' },]
+		"customizedDateList": []
 	}],
 	"SWITCH": {
 		"weather": true,
@@ -38,8 +38,8 @@ const USER_CONFIG ={
 		"oneTalk": false,
 		"earthyLoveWords": false,
 		"momentCopyrighting": false,
-		"poisonChickenSoup": false,
-		"poetry": false,
+		"poisonChickenSoup": true,
+		"poetry": true,
 		"horoscope": false,
 		"birthdayMessage": true
 	}
