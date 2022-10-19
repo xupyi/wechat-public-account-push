@@ -18,7 +18,7 @@ const USER_CONFIG ={
 		"poetry": true,
 		"horoscope": false,
 		"birthdayMessage": true
-	}
+	},
 	 // 使用微信测试号：公众号APP_ID
   APP_ID: 'wxa093d71ec9c445eb',
 
