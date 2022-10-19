@@ -27,7 +27,7 @@ const USER_CONFIG ={
 			"type": "*生日",
 			"name": "生日0-0",
 			"date": "10-31",
-			"year": "2022"
+			"year": "1998"
 		}],
 		"customizedDateList": []
 	}],
