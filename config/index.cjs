@@ -35,7 +35,7 @@ const USER_CONFIG ={
       // 使用微信测试号：扫码关注你的微信测试号后生成的一段字符串，在测试号后台能看到
       id: 'ollwI6lvhiaKp6-Yifu8jsXw3SNs',
       // 使用微信测试号：你想对他发送的模板消息的模板ID
-      useTemplateId: 'QlCWuAKo9HIiM2OCKiIZZ-1IbKFKxQb_cL7fVynWO_k',
+      useTemplateId: 'hYG0Qt6goocKMeoArB1ah3hruSQ7rWFenX5gZ8gBh5E',
       // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
       horoscopeDate: '09-10',
       festivals: [
@@ -70,7 +70,9 @@ const USER_CONFIG ={
         '因为太喜欢你，所以看谁都像是情敌。',
         '申请成为你爱里的永久居民。',
         '你很傻，你很笨，可我还是很羡慕你，因为你有我',
-        '遇见你，就好像捡到了100斤的运气'
+        '遇见你，就好像捡到了100斤的运气',
+	'外界的声音都是参考，你不开心就不要参考',
+	'本想对你回眸一笑，没想天冷冒出个鼻涕泡'
       ],
     }
     // 你可以不断按格式往下增加
