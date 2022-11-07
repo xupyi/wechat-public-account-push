@@ -203,7 +203,7 @@ export const getHolidaytts = async () => {
 //   console.error('获取下一休息日tts: 发生错误', res)
 //   return null
 	let day1 = new Date();
-			day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
+			day1.setTime(day1.getTime() + 24 * 60 * 60 * 1000);
 			let year = day1.getFullYear()
 			let month = day1.getMonth() + 1
 			let day = day1.getDate();
