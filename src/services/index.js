@@ -936,6 +936,7 @@ export const sendMessageReply = async (users, templateId = null, params = null, 
   const needPostNum = users.length
   let successPostNum = 0
   let failPostNum = 0
+  let resList=[]
   const successPostIds = []
   const failPostIds = []
   const maxPushOneMinute = typeof config.MAX_PUSH_ONE_MINUTE === 'number' && config.MAX_PUSH_ONE_MINUTE > 0 ? config.MAX_PUSH_ONE_MINUTE : 5
