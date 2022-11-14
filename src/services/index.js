@@ -500,57 +500,6 @@ export const getConstellationFortune = async (date, dateType) => {
 }
 
 /**
- * 获取课程表
- * @param courseSchedule {Array<Array<String>>|{benchmark: {date: string, isOdd: boolean}, courses: {odd: Array<Array<string>>, even:Array<Array<string>>}}}
- * @returns {string}
- */
-export const getCourseSchedule = (courseSchedule) => {
-  if (config.SWITCH && config.SWITCH.courseSchedule === false) {
-    return ''
-  }
-  if (!courseSchedule) {
-    return ''
-  }
-  const week = (selfDayjs().day() + 6) % 7
-  // 如果课程表是一个数组，认为只有单周的课表
-  if (Array.isArray(courseSchedule)) {
-    return (courseSchedule[week] || []).join('\n')
-  }
-  // 如果是一个对象，则根据基准日期判断单双周
-  const benchmarkDate = selfDayjs(courseSchedule.benchmark.date)
-  const diff = selfDayjs().diff(benchmarkDate.set('day', 0).set('hour', 0).set('minute', 0).set('second', 0)
-    .set('millisecond', 0), 'millisecond')
-  const isSameKind = Math.floor(diff / 7 / 86400000) % 2 === 0
-  const kind = ((isSameKind && courseSchedule.benchmark.isOdd) || (!isSameKind && !courseSchedule.benchmark.isOdd)) ? 'odd' : 'even'
-  return ((courseSchedule.courses && courseSchedule.courses[kind] && courseSchedule.courses[kind][week]) || []).join('\n')
-}
-
-/**
- * 获取bing每日壁纸数据
- */
-export const getBing = async () => {
-  const url = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1'
-
-  const res = await axios.get(url, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).catch((err) => err)
-
-  if (res.data && res.data.images) {
-    const imgUrl = `https://cn.bing.com/${res.data.images[0].url}`
-    const imgTitle = res.data.images[0].title
-    const imgContent = res.data.images[0].copyright.replace(/\(.*?\)/, '')
-    return {
-      imgUrl,
-      imgTitle,
-      imgContent,
-    }
-  }
-  return {}
-}
-
-/**
  * 获取重要节日信息
  * @param {Array<object>} festivals
  * @return
@@ -755,7 +704,6 @@ export const getAggregatedData = async () => {
       { name: toLowerLine('poetryAuthor'), value: poetryAuthor, color: getColor() },
       { name: toLowerLine('poetryDynasty'), value: poetryDynasty, color: getColor() },
       { name: toLowerLine('poetryTitle'), value: poetryTitle, color: getColor() },
-      { name: toLowerLine('courseSchedule'), value: courseSchedule, color: getColor() },
     ].concat(weatherMessage)
       .concat(constellationFortune)
       .concat(dateDiffParams)
@@ -993,15 +941,26 @@ export const sendMessageReply = async (users, templateId = null, params = null, 
   let failPostNum = 0
   const successPostIds = []
   const failPostIds = []
+  const maxPushOneMinute = typeof config.MAX_PUSH_ONE_MINUTE === 'number' && config.MAX_PUSH_ONE_MINUTE > 0 ? config.MAX_PUSH_ONE_MINUTE : 5
   for (const user of users) {
-    allPromise.push(sendMessage(
+    if (RUN_TIME_STORAGE.pushNum >= maxPushOneMinute) {
+      RUN_TIME_STORAGE.pushNum = 0
+      // 请求超过N个则等待60秒再发送
+      console.log(`单次脚本已发送 ${maxPushOneMinute} 条消息，为避免推送服务器识别为恶意推送，脚本将休眠 ${config.SLEEP_TIME ? config.SLEEP_TIME / 1000 : 65} 秒。休眠结束后将自动推送剩下的消息。`)
+      await sleep(config.SLEEP_TIME || 65000)
+    }
+    resList.push(await sendMessage(
       templateId || user.useTemplateId,
       user,
       params || user.wxTemplateParams,
       usePassage,
     ))
+    if (RUN_TIME_STORAGE.pushNum) {
+      RUN_TIME_STORAGE.pushNum += 1
+    } else {
+      RUN_TIME_STORAGE.pushNum = 1
+    }
   }
-  const resList = await Promise.all(allPromise)
   resList.forEach((item) => {
     if (item.success) {
       successPostNum++
