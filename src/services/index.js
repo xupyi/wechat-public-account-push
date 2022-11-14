@@ -678,9 +678,6 @@ export const getAggregatedData = async () => {
     // 获取星座运势
     const constellationFortune = await getConstellationFortune(user.horoscopeDate, user.horoscopeDateType)
 
-    // 获取课表信息
-    const courseSchedule = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
-
     // 集成所需信息
     const wxTemplateParams = [
       { name: toLowerLine('toName'), value: user.name, color: getColor() },
