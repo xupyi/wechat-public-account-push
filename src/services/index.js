@@ -95,6 +95,12 @@ export const getWeather = async (province, city) => {
     return {}
   }
 
+  // 读取缓存
+  if (RUN_TIME_STORAGE[`${province}_${city}`]) {
+    console.log(`获取了相同的数据，读取缓存 >>> ${province}_${city}`)
+    return RUN_TIME_STORAGE[`${province}_${city}`]
+  }
+
   const cityInfo = getWeatherCityInfo(province, city)
   if (!cityInfo) {
     console.error('配置文件中找不到相应的省份或城市')
@@ -115,7 +121,8 @@ export const getWeather = async (province, city) => {
       console.error('天气情况: 找不到天气信息, 获取失败')
       return {}
     }
-    return {
+
+    const result = {
       // 湿度
       shidu: commonInfo.shidu,
       // PM2.5
@@ -145,10 +152,15 @@ export const getWeather = async (province, city) => {
       // 温馨提示
       notice: info.notice,
     }
+
+    RUN_TIME_STORAGE[`${province}_${city}`] = cloneDeep(result)
+
+    return result
   }
   console.error('天气情况获取失败', res)
   return {}
 }
+
 
 /**
  * 金山词霸每日一句
