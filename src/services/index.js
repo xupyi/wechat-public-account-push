@@ -1,7 +1,7 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { JSDOM } from 'jsdom'
-
+import cloneDeep from 'lodash/cloneDeep.js'
 import config from '../../config/exp-config.js'
 import TEMPLATE_CONFIG from '../../config/template-config.cjs'
 import { DEFAULT_OUTPUT, TYPE_LIST, RUN_TIME_STORAGE } from '../store/index.js'
@@ -12,6 +12,7 @@ import {
   getColor,
   toLowerLine,
   getWeatherCityInfo,
+  sleep,
 } from '../utils/index.js'
 import { selfDayjs, timeZone } from '../utils/set-def-dayjs.js'
 
