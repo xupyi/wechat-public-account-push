@@ -137,3 +137,9 @@ export const getWeatherCityInfo = (province, city) => {
   
   return null
 }
+/**
+ * 带promise的sleep
+ * @param time
+ * @returns {Promise<unknown>}
+ */
+export const sleep = (time) => new Promise((resolve) => { setTimeout(resolve, time) })
