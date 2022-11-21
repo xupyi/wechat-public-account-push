@@ -55,51 +55,51 @@ const USER_CONFIG ={
         { keyword: 'love_day', date: '2013-09-01' },
       ],
     },
-// 	  {
-//       // 想要发送的人的名字
-//       name: '小乔',
-//       // 使用微信测试号：扫码关注你的微信测试号后生成的一段字符串，在测试号后台能看到
-//       id: 'ollwI6kn68_nf2XVzj4n0om8i3_I',
-//       // 使用微信测试号：你想对他发送的模板消息的模板ID
-//       useTemplateId: 'seKrSopW2VyotRqm46VWeloksgd7Zp4HmkMtl3_AWjw',
-//       // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
-//       horoscopeDate: '09-10',
-//       festivals: [
-//         // 注意：此条配置日期为阴历日期，因为`type`中 “生日” 之前有 * 符号
-//         {
-//           type: '*生日', name: '小乔宝贝', year: '1997', date: '01-04',
-//         },
+	  {
+      // 想要发送的人的名字
+      name: '小乔',
+      // 使用微信测试号：扫码关注你的微信测试号后生成的一段字符串，在测试号后台能看到
+      id: 'ollwI6kn68_nf2XVzj4n0om8i3_I',
+      // 使用微信测试号：你想对他发送的模板消息的模板ID
+      useTemplateId: 'seKrSopW2VyotRqm46VWeloksgd7Zp4HmkMtl3_AWjw',
+      // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
+      horoscopeDate: '09-10',
+      festivals: [
+        // 注意：此条配置日期为阴历日期，因为`type`中 “生日” 之前有 * 符号
+        {
+          type: '*生日', name: '小乔宝贝', year: '1997', date: '01-04',
+        },
         
-//       ],
-//       // 我们在一起已经有xxxx天了的配置
-//       customizedDateList: [
-//         // 在一起的日子
-//         { keyword: 'love_day', date: '2013-09-01' },
-//       ],
-//     },
-// 	    {
-//       // 想要发送的人的名字
-//       name: '刘茵',
-//       // 使用微信测试号：扫码关注你的微信测试号后生成的一段字符串，在测试号后台能看到
-//       id: 'ollwI6ilJKtKomzUMocsTLm3-v-A',
-//       // 使用微信测试号：你想对他发送的模板消息的模板ID
-//       useTemplateId: 'seKrSopW2VyotRqm46VWeloksgd7Zp4HmkMtl3_AWjw',
-//       // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
-//       horoscopeDate: '09-10',
-//       festivals: [
+      ],
+      // 我们在一起已经有xxxx天了的配置
+      customizedDateList: [
+        // 在一起的日子
+        { keyword: 'love_day', date: '2013-09-01' },
+      ],
+    },
+	    {
+      // 想要发送的人的名字
+      name: '刘茵',
+      // 使用微信测试号：扫码关注你的微信测试号后生成的一段字符串，在测试号后台能看到
+      id: 'ollwI6ilJKtKomzUMocsTLm3-v-A',
+      // 使用微信测试号：你想对他发送的模板消息的模板ID
+      useTemplateId: 'seKrSopW2VyotRqm46VWeloksgd7Zp4HmkMtl3_AWjw',
+      // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
+      horoscopeDate: '09-10',
+      festivals: [
        
-//          // 注意：此条配置日期为阴历日期，因为`type`中 “生日” 之前有 * 符号
-//         {
-//           type: '*生日', name: '刘茵宝贝', year: '1998', date: '03-20',
-//         },
+         // 注意：此条配置日期为阴历日期，因为`type`中 “生日” 之前有 * 符号
+        {
+          type: '*生日', name: '刘茵宝贝', year: '1998', date: '03-20',
+        },
         
-//       ],
-//       // 我们在一起已经有xxxx天了的配置
-//       customizedDateList: [
-//         // 在一起的日子
-//         { keyword: 'love_day', date: '2013-09-01' },
-//       ],
-//     }
+      ],
+      // 我们在一起已经有xxxx天了的配置
+      customizedDateList: [
+        // 在一起的日子
+        { keyword: 'love_day', date: '2013-09-01' },
+      ],
+    }
   ],
 	/** 插槽 */
 
