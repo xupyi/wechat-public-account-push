@@ -18,6 +18,14 @@ import { selfDayjs, timeZone } from '../utils/set-def-dayjs.js'
 
 axios.defaults.timeout = 10000
 
+// 使用单空行还是双空行
+const getLB = () => {
+  if (!config.USE_PASSAGE || config.USE_PASSAGE === 'wechat-test') {
+    return '\n'
+  }
+  return '\n\n'
+}
+
 /**
  * 获取 accessToken
  * @returns accessToken
@@ -162,7 +170,6 @@ export const getWeather = async (province, city) => {
   return {}
 }
 
-
 /**
  * 金山词霸每日一句
  * @returns
@@ -191,107 +198,15 @@ export const getHolidaytts = async () => {
   if (config.SWITCH && config.SWITCH.holidaytts === false) {
     return null
   }
-//   let str = "日一二三四五六".charAt(new Date().getDay());
-//   if (str == "一") {
-//     return "新的一周如期而至，新的祝福接踵而来；物以稀为贵，月以明为贵；秋以爽为贵，友以挚为贵；情以真为贵，我以你为贵！祝新一周事事顺利好心情！";
-//   } else if (str == "二") {
-//     return "周二文件满天飞，交际应酬排着队，老板背后加紧催，加班加点没人陪，细了腿，痛了背，我送祝福一直追，年少不要徒伤悲，生活以后会更美。";
-//   } else if (str == "三") {
-//     return "周三啦，事儿不少，有个事情很重要，就是给你送个减压宝，减去丝丝烦恼，减去压力的笼罩，只等你满面红光面带笑！好好工作哦，朋友，我等你在周末的转角！不见不散！！";
-//   } else if (str == "四") {
-//     return "周四来到，心烦意燥，拼劲早就奄奄一息了，活力早就大伤元气了，自信心早就堕落了，幸亏周五邻近，礼拜天已伸开怀里等候大家，愿你我共勉之，鼓足干劲，轻轻松松度周四!";
-//   } else if (str == "五") {
-//     return "又到星期五，快乐问候不会土。祝你遇到开心拦路虎，碰到财富好运鼠，邂逅甜蜜爱情鹿，畅饮健康长寿醋，幸福生活你做主!";
-//   } else if (str == "六") {
-//     return "周六到了，睡就睡个自然醒，乐就乐个乐翻天，笑就笑个花枝颤，玩就玩个天昏暗，闲就闲个活神仙只要你想，快乐就在你身边！";
-//   } else if (str == "日") {
-//     return "周末来临请做好抗压准备，我将把温馨甜蜜放在你心底，压的你气喘吁吁；把快乐幸福放在你心头，让你毫无招架之力；把吉祥如意装入你身体，弄的你透不过气；把爱神财神和你捆绑在一起，令你寸步难移。只为你将我记起，周末哪能不联系？祝开开心心永甜蜜！";
-//   }
-//   const url = 'https://wangxinleo.cn/api/wx-push/holiday/getHolidaytts'
-//   const res = await axios.get(url).catch((err) => err)
 
-//   if (res.status === 200 && res.data && res.data.code === 0) {
-//     return res.data.tts
-//   }
-//   console.error('获取下一休息日tts: 发生错误', res)
-//   return null
-	let day1 = new Date();
-			day1.setTime(day1.getTime() + 24 * 60 * 60 * 1000);
-			let year = day1.getFullYear()
-			let month = day1.getMonth() + 1
-			let day = day1.getDate();
-			month = month < 10 ? "0" + month : month;
-			day = day < 10 ? "0" + day : day;
-			let ymd = year + "-" + month + "-" + day;
-// 				let ymd = "2022-11-08" // 自定义日期-测试
+  const url = 'https://wangxinleo.cn/api/wx-push/holiday/getHolidaytts'
+  const res = await axios.get(url).catch((err) => err)
 
-				let str = "日一二三四五六".charAt(new Date(ymd).getDay());
-
-				let week = null
-				if (str == "日" || str == "六") {
-					week = "今天是周" + str + "放松一下吧！(<ゝω・)☆"
-				} else if (str == "一") {
-					week = "还有5天才是休息日，刚休息好，一定元气满满，干劲十足吧！"
-				} else if (str == "二") {
-					week = "还有4天才是休息日，工作忙完，找朋友聊聊天也是挺好的，我一直都在哦！"
-				} else if (str == "三") {
-					week = "还有3天才是休息日，有我早安，你不孤单！(*❦ω❦)"
-				} else if (str == "四") {
-					week = "还有2天才是休息日，先好好工作吧！"
-				} else if (str == "五") {
-					week = "再坚持1天就是休息日了，这周的小目标达成了吗！"
-				}
-
-				function getDiffDay(t) {
-					// 计算两个日期之间的差值
-					let totalDays, diffDate
-
-					let myDate_1 = Date.parse(t)
-					let myDate_2 = Date.parse(ymd)
-					// 将两个日期都转换为毫秒格式，然后做差
-					diffDate = Math.abs(myDate_1 - myDate_2) // 取相差毫秒数的绝对值
-					totalDays = Math.floor(diffDate / (1000 * 3600 * 24)) // 向下取整
-					return totalDays // 相差的天数
-				}
-				let dateArr = [{
-						time: "2023-01-01",
-						name: "元旦",
-						bless: "今天是元旦，新一年,祝福多多又暖暖！"
-					}, {
-						time: "2023-01-21",
-						name: "除夕",
-						bless: "今天是除夕，除夕除烦恼,愿你开心笑！"
-					}, {
-						time: "2023-01-22",
-						name: "除夕",
-						bless: "今天是除夕，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
-					}, {
-						time: "2023-02-05",
-						name: "元宵节",
-						bless: "今天是元宵节，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
-					}, {
-						time: "2023-05-01",
-						name: "劳动节",
-						bless: "今天是劳动节，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
-					},
-					// ......
-				]
-				let arr_index = dateArr.findIndex((item) => {
-					return item.time >= ymd
-				})
-				let text = null
-				let res = dateArr[arr_index]
-        if(arr_index==-1){
-          return week+"获取最近节日失败，请前往补充"
-        }
-				if (res.time == ymd) {
-					return res.bless
-				} else {
-					let res1 = getDiffDay(res.time)
-					text = "最近一个节日是" + res.name + "，还有" + res1 + "天，" + (res1 < 3 ? '节日快到了，开心心！' : '还早着呢！')
-				
-          return week+text
-				}
+  if (res.status === 200 && res.data && res.data.code === 0) {
+    return res.data.tts
+  }
+  console.error('获取下一休息日tts: 发生错误', res)
+  return null
 }
 
 /**
@@ -463,6 +378,13 @@ export const getConstellationFortune = async (date, dateType) => {
 
   // 获取星座id
   const { en: constellation } = getConstellation(date)
+
+  // 读取缓存
+  if (RUN_TIME_STORAGE[`${constellation}_${dateTypeIndex}`]) {
+    console.log(`获取了相同的数据，读取缓存 >>> ${constellation}_${dateTypeIndex}`)
+    return RUN_TIME_STORAGE[`${constellation}_${dateTypeIndex}`]
+  }
+
   const url = `https://www.xzw.com/fortune/${constellation}/${dateTypeIndex}.html`
   try {
     const { data } = await axios.get(url).catch((err) => err)
@@ -492,11 +414,64 @@ export const getConstellationFortune = async (date, dateType) => {
       })
     }
 
+    RUN_TIME_STORAGE[`${constellation}_${dateTypeIndex}`] = cloneDeep(res)
+
     return res
   } catch (e) {
     console.error('星座运势：发生错误', e)
     return res
   }
+}
+
+/**
+ * 获取课程表
+ * @param courseSchedule {Array<Array<String>>|{benchmark: {date: string, isOdd: boolean}, courses: {odd: Array<Array<string>>, even:Array<Array<string>>}}}
+ * @returns {string}
+ */
+export const getCourseSchedule = (courseSchedule) => {
+  if (config.SWITCH && config.SWITCH.courseSchedule === false) {
+    return ''
+  }
+  if (!courseSchedule) {
+    return ''
+  }
+  const week = (selfDayjs().day() + 6) % 7
+  // 如果课程表是一个数组，认为只有单周的课表
+  if (Array.isArray(courseSchedule)) {
+    return (courseSchedule[week] || []).join(getLB())
+  }
+  // 如果是一个对象，则根据基准日期判断单双周
+  const benchmarkDate = selfDayjs(courseSchedule.benchmark.date)
+  const diff = selfDayjs().diff(benchmarkDate.set('day', 0).set('hour', 0).set('minute', 0).set('second', 0)
+    .set('millisecond', 0), 'millisecond')
+  const isSameKind = Math.floor(diff / 7 / 86400000) % 2 === 0
+  const kind = ((isSameKind && courseSchedule.benchmark.isOdd) || (!isSameKind && !courseSchedule.benchmark.isOdd)) ? 'odd' : 'even'
+  return ((courseSchedule.courses && courseSchedule.courses[kind] && courseSchedule.courses[kind][week]) || []).join(getLB())
+}
+
+/**
+ * 获取bing每日壁纸数据
+ */
+export const getBing = async () => {
+  const url = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1'
+
+  const res = await axios.get(url, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).catch((err) => err)
+
+  if (res.data && res.data.images) {
+    const imgUrl = `https://cn.bing.com/${res.data.images[0].url}`
+    const imgTitle = res.data.images[0].title
+    const imgContent = res.data.images[0].copyright.replace(/\(.*?\)/, '')
+    return {
+      imgUrl,
+      imgTitle,
+      imgContent,
+    }
+  }
+  return {}
 }
 
 /**
@@ -563,7 +538,7 @@ export const getBirthdayMessage = (festivals) => {
 
       // 存储数据
       if (message) {
-        resMessage += `${message} \n`
+        resMessage += `${message} ${getLB()}`
       }
     }
   })
@@ -617,6 +592,88 @@ export const getSlotList = () => {
 }
 
 /**
+ * 天行统一调用接口
+ * @param apiType
+ * @param params
+ * @returns {Promise<T[]|*[]>}
+ */
+export const buildTianApi = async (apiType, params = null) => {
+  const typeMap = {
+    zaoan: 'morningGreeting',
+    wanan: 'eveningGreeting',
+    networkhot: 'networkHot',
+    tianqi: 'weather',
+  }
+  if (!(config.TIAN_API && config.TIAN_API[typeMap[apiType]])) {
+    return []
+  }
+  let count = config.TIAN_API[typeMap[apiType]]
+  if (typeof count !== 'number') {
+    count = 1
+  }
+  if (!(config.TIAN_API && config.TIAN_API.key)) {
+    console.error('配置中config.TIAN_API.key 未填写，无法请求TIAN_API')
+    return []
+  }
+
+  if (RUN_TIME_STORAGE[`${apiType}_${JSON.stringify(params)}_${count}`]) {
+    console.log(`获取了相同的数据，读取缓存 >>> ${apiType}_${JSON.stringify(params)}_${count}`)
+    return RUN_TIME_STORAGE[`${apiType}_${JSON.stringify(params)}_${count}`]
+  }
+
+  const url = `http://api.tianapi.com/${apiType}/index`
+  const res = await axios.get(url, {
+    params: { key: config.TIAN_API.key, ...params },
+  }).catch((err) => err)
+
+  if (res && res.data && res.data.code === 200) {
+    const result = (res.data.newslist || []).slice(0, count)
+
+    RUN_TIME_STORAGE[`${apiType}_${JSON.stringify(params)}_${count}`] = cloneDeep(result)
+
+    return result
+  }
+
+  console.error(`获取天行API接口 ${apiType} 发生错误: `, res.data || res)
+  return []
+}
+
+/**
+ * 天行-早安心语
+ * @returns {Promise<T>}
+ */
+export const getTianApiMorningGreeting = () => buildTianApi('zaoan').then((res) => res[0] && res[0].content)
+
+/**
+ * 天行-晚安心语
+ * @returns {Promise<T>}
+ */
+export const getTianApiEveningGreeting = () => buildTianApi('wanan').then((res) => res[0] && res[0].content)
+
+/**
+ * 天行-天气（付费）
+ * @param user
+ * @returns {Promise<[]>|Promise<never>|Promise<AxiosResponse<any>>}
+ */
+export const getTianApiWeather = async (user) => buildTianApi('tianqi', { city: user.city || config.CITY })
+
+/**
+ * 天行-每日热搜
+ * @returns {Promise<[]>|Promise<never>|Promise<AxiosResponse<any>>}
+ * @param type
+ */
+export const getTianApiNetworkHot = async (type = 'default') => {
+  let result = ''
+  const res = await buildTianApi('networkhot')
+  res.forEach((item, index) => {
+    if (item.digest) {
+      result += `${index + 1}、 ${type === 'default' ? item.digest : item.title} ${getLB()}`
+    }
+  })
+  return result
+}
+
+/**
  * 获取全部处理好的用户数据
  * @returns
  */
@@ -658,7 +715,9 @@ export const getAggregatedData = async () => {
   const users = config.USERS
   for (const user of users) {
     // 获取每日天气
-    const weatherInfo = await getWeather(user.province || config.PROVINCE, user.city || config.CITY)
+    const useProvince = user.province || config.PROVINCE
+    const useCity = user.city || config.CITY
+    const weatherInfo = await getWeather(useProvince, useCity)
     const weatherMessage = Object.keys(weatherInfo).map((item) => ({
       name: toLowerLine(item),
       value: weatherInfo[item] || '获取失败',
@@ -678,6 +737,33 @@ export const getAggregatedData = async () => {
     // 获取星座运势
     const constellationFortune = await getConstellationFortune(user.horoscopeDate, user.horoscopeDateType)
 
+    // 获取课表信息
+    const courseSchedule = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
+
+    // 天行-早晚安
+    const tianApiGreeting = [{
+      name: toLowerLine('tianApiMorningGreeting'),
+      value: await getTianApiMorningGreeting(),
+      color: getColor(),
+    }, {
+      name: toLowerLine('tianApiEveningGreeting'),
+      value: await getTianApiEveningGreeting(),
+      color: getColor(),
+    }].filter((it) => it.value)
+
+    // 天行-天气
+    const tianApiWeather = (await getTianApiWeather(user) || []).map((it, index) => Object.keys((it)).filter((weatherKey) => ['province', 'area', 'weatherimg'].indexOf(weatherKey) === -1).map((key) => ({
+      name: toLowerLine(`tianApiWeather_${key}_${index}`),
+      value: it[key],
+      color: getColor(),
+    }))).flat()
+
+    // 天行-热榜
+    const tianApiNetworkHot = [{
+      name: toLowerLine('tianApiNetworkHot'),
+      value: await getTianApiNetworkHot(config.TIAN_API && config.TIAN_API.networkHotType),
+      color: getColor(),
+    }]
     // 集成所需信息
     const wxTemplateParams = [
       { name: toLowerLine('toName'), value: user.name, color: getColor() },
@@ -701,10 +787,14 @@ export const getAggregatedData = async () => {
       { name: toLowerLine('poetryAuthor'), value: poetryAuthor, color: getColor() },
       { name: toLowerLine('poetryDynasty'), value: poetryDynasty, color: getColor() },
       { name: toLowerLine('poetryTitle'), value: poetryTitle, color: getColor() },
+      { name: toLowerLine('courseSchedule'), value: courseSchedule, color: getColor() },
     ].concat(weatherMessage)
       .concat(constellationFortune)
       .concat(dateDiffParams)
       .concat(slotParams)
+      .concat(tianApiGreeting)
+      .concat(tianApiWeather)
+      .concat(tianApiNetworkHot)
 
     user.wxTemplateParams = wxTemplateParams
   }
@@ -737,23 +827,22 @@ export const model2Data = (templateId, wxTemplateData, urlencode = false, turnTo
   }
 
   // 替换模板
-  targetValue = model.desc.replace(/[{]{2}(.*?).DATA[}]{2}/gm, (paramText) => {
+  targetValue = model.desc.replace(/\{{2}(.*?)\.DATA}{2}/gm, (paramText) => {
     // 提取变量
-    const param = paramText.match(/(?<=[{]{2})(.*?)(?=.DATA[}]{2})/g)
-    if (param && param[0]) {
-      const replaceText = wxTemplateData[param[0]]
-      return replaceText && (replaceText.value || replaceText.value === 0) ? replaceText.value : ''
-    }
-    return ''
+    const param = paramText.match(/\{{2}(.*?)\.DATA}{2}/)
+    const replaceText = wxTemplateData[param[1]]
+    return replaceText && (replaceText.value || replaceText.value === 0) ? replaceText.value : ''
   })
-
-  // 统一格式
-  targetValue = JSON.stringify(targetValue).replace(/(?<=\\n|^)[ ]{1,}/gm, '')
-  // 去除前后双引号
-  targetValue = targetValue.substring(1, targetValue.length - 1)
+  // 清除每行前的空格
+  targetValue = targetValue.replace(/(?<=\\n|^) +/gm, '')
 
   // urlencode
   if (urlencode) {
+    // json序列化
+    targetValue = JSON.stringify(targetValue)
+    // 去除前后双引号
+    targetValue = targetValue.substring(1, targetValue.length - 1)
+    // urlencode
     model.title = encodeURI(model.title)
     targetValue = encodeURI(targetValue)
   }
@@ -801,7 +890,7 @@ const assembleOpenUrl = () => ''
  */
 const sendMessageByPushDeer = async (user, templateId, wxTemplateData) => {
   // 模板拼装
-  const modelData = model2Data(templateId, wxTemplateData, true, true)
+  const modelData = model2Data(templateId, wxTemplateData, false, false)
   if (!modelData) {
     return {
       name: user.name,
@@ -809,13 +898,100 @@ const sendMessageByPushDeer = async (user, templateId, wxTemplateData) => {
     }
   }
 
-  const url = `https://api2.pushdeer.com/message/push?pushkey=${user.id}&text=${modelData.title}&desp=${modelData.desc}&type=markdown`
+  const url = 'https://api2.pushdeer.com/message/push'
 
   // 发送消息
-  const res = await axios.get(url, {
+  const res = await axios.post(url, {
+    pushkey: user.id,
+    text: modelData.title,
+    desp: modelData.desc,
+    type: 'markdown',
+  }, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
     },
+  }).catch((err) => err)
+
+  if (res.data && res.data.code === 0) {
+    console.log(`${user.name}: 推送消息成功`)
+    return {
+      name: user.name,
+      success: true,
+    }
+  }
+  console.error(`${user.name}: 推送消息失败`, res)
+  return {
+    name: user.name,
+    success: false,
+  }
+}
+
+/**
+ * 使用pushplus
+ * @param user
+ * @param templateId
+ * @param wxTemplateData
+ * @returns {Promise<{success: boolean, name}>}
+ */
+const sendMessageByPushPlus = async (user, templateId, wxTemplateData) => {
+  // 模板拼装
+  const modelData = model2Data(templateId, wxTemplateData, false, false)
+  if (!modelData) {
+    return {
+      name: user.name,
+      success: false,
+    }
+  }
+
+  const url = 'http://www.pushplus.plus/send'
+  // 发送消息
+  const res = await axios.post(url, {
+    token: user.id,
+    title: modelData.title,
+    content: modelData.desc,
+    template: 'markdown',
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).catch((err) => err)
+
+  if (res.data && res.data.code === 200) {
+    console.log(`${user.name}: 推送消息成功`)
+    return {
+      name: user.name,
+      success: true,
+    }
+  }
+  console.error(`${user.name}: 推送消息失败`, res)
+  return {
+    name: user.name,
+    success: false,
+  }
+}
+
+/**
+ * 使用server-chan
+ * @param user
+ * @param templateId
+ * @param wxTemplateData
+ * @returns {Promise<{success: boolean, name}>}
+ */
+const sendMessageByServerChan = async (user, templateId, wxTemplateData) => {
+  // 模板拼装
+  const modelData = model2Data(templateId, wxTemplateData, false, false)
+  if (!modelData) {
+    return {
+      name: user.name,
+      success: false,
+    }
+  }
+
+  const url = `https://sctapi.ftqq.com/${user.id}.send`
+  // 发送消息
+  const res = await axios.post(url, {
+    title: modelData.title,
+    desp: modelData.desc,
   }).catch((err) => err)
 
   if (res.data && res.data.code === 0) {
@@ -843,6 +1019,7 @@ const sendMessageByWeChatTest = async (user, templateId, wxTemplateData) => {
   let accessToken = null
 
   if (RUN_TIME_STORAGE.accessToken) {
+    console.log('获取了相同的数据，读取缓存 >>> accessToken')
     accessToken = RUN_TIME_STORAGE.accessToken
   } else {
     accessToken = await getAccessToken()
@@ -917,6 +1094,12 @@ export const sendMessage = async (templateId, user, params, usePassage) => {
   if (usePassage === 'push-deer') {
     console.log('使用push-deer推送')
     return sendMessageByPushDeer(user, templateId, wxTemplateData)
+  } if (usePassage === 'server-chan') {
+    console.log('使用server-chan推送')
+    return sendMessageByServerChan(user, templateId, wxTemplateData)
+  } if (usePassage === 'push-plus') {
+    console.log('使用push-plus推送')
+    return sendMessageByPushPlus(user, templateId, wxTemplateData)
   }
 
   console.log('使用微信测试号推送')
@@ -932,13 +1115,13 @@ export const sendMessage = async (templateId, user, params, usePassage) => {
  * @returns {Promise<{failPostIds: (string|string), failPostNum: number, successPostIds: (string|string), needPostNum: *, successPostNum: number}>}
  */
 export const sendMessageReply = async (users, templateId = null, params = null, usePassage = null) => {
-  const allPromise = []
+  const resList = []
   const needPostNum = users.length
   let successPostNum = 0
   let failPostNum = 0
-  let resList=[]
   const successPostIds = []
   const failPostIds = []
+
   const maxPushOneMinute = typeof config.MAX_PUSH_ONE_MINUTE === 'number' && config.MAX_PUSH_ONE_MINUTE > 0 ? config.MAX_PUSH_ONE_MINUTE : 5
   for (const user of users) {
     if (RUN_TIME_STORAGE.pushNum >= maxPushOneMinute) {
