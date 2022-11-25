@@ -198,15 +198,83 @@ export const getHolidaytts = async () => {
   if (config.SWITCH && config.SWITCH.holidaytts === false) {
     return null
   }
+let day1 = new Date();
+			day1.setTime(day1.getTime() + 24 * 60 * 60 * 1000);
+			let year = day1.getFullYear()
+			let month = day1.getMonth() + 1
+			let day = day1.getDate();
+			month = month < 10 ? "0" + month : month;
+			day = day < 10 ? "0" + day : day;
+			let ymd = year + "-" + month + "-" + day;
+// 				let ymd = "2022-11-08" // 自定义日期-测试
 
-  const url = 'https://wangxinleo.cn/api/wx-push/holiday/getHolidaytts'
-  const res = await axios.get(url).catch((err) => err)
+				let str = "日一二三四五六".charAt(new Date(ymd).getDay());
 
-  if (res.status === 200 && res.data && res.data.code === 0) {
-    return res.data.tts
-  }
-  console.error('获取下一休息日tts: 发生错误', res)
-  return null
+				let week = null
+				if (str == "日" || str == "六") {
+					week = "今天是周" + str + "放松一下吧！(<ゝω・)☆"
+				} else if (str == "一") {
+					week = "还有5天才是休息日，刚休息好，一定元气满满，干劲十足吧！"
+				} else if (str == "二") {
+					week = "还有4天才是休息日，工作忙完，找朋友聊聊天也是挺好的，我一直都在哦！"
+				} else if (str == "三") {
+					week = "还有3天才是休息日，有我早安，你不孤单！(*❦ω❦)"
+				} else if (str == "四") {
+					week = "还有2天才是休息日，先好好工作吧！"
+				} else if (str == "五") {
+					week = "再坚持1天就是休息日了，这周的小目标达成了吗！"
+				}
+
+				function getDiffDay(t) {
+					// 计算两个日期之间的差值
+					let totalDays, diffDate
+
+					let myDate_1 = Date.parse(t)
+					let myDate_2 = Date.parse(ymd)
+					// 将两个日期都转换为毫秒格式，然后做差
+					diffDate = Math.abs(myDate_1 - myDate_2) // 取相差毫秒数的绝对值
+					totalDays = Math.floor(diffDate / (1000 * 3600 * 24)) // 向下取整
+					return totalDays // 相差的天数
+				}
+				let dateArr = [{
+						time: "2023-01-01",
+						name: "元旦",
+						bless: "今天是元旦，新一年,祝福多多又暖暖！"
+					}, {
+						time: "2023-01-21",
+						name: "除夕",
+						bless: "今天是除夕，除夕除烦恼,愿你开心笑！"
+					}, {
+						time: "2023-01-22",
+						name: "除夕",
+						bless: "今天是除夕，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
+					}, {
+						time: "2023-02-05",
+						name: "元宵节",
+						bless: "今天是元宵节，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
+					}, {
+						time: "2023-05-01",
+						name: "劳动节",
+						bless: "今天是劳动节，愿我的祝福像高高低低的风铃,给你带去叮叮铛铛的快乐！"
+					},
+					// ......
+				]
+				let arr_index = dateArr.findIndex((item) => {
+					return item.time >= ymd
+				})
+				let text = null
+				let res = dateArr[arr_index]
+        if(arr_index==-1){
+          return week+"获取最近节日失败，请前往补充"
+        }
+				if (res.time == ymd) {
+					return res.bless
+				} else {
+					let res1 = getDiffDay(res.time)
+					text = "最近一个节日是" + res.name + "，还有" + res1 + "天，" + (res1 < 3 ? '节日快到了，开心心！' : '还早着呢！')
+				
+          return week+text
+				}
 }
 
 /**
